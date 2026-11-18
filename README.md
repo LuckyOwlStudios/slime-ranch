@@ -46,8 +46,8 @@ Bigger slimes split into more small slimes, so more slime balls. Pinky always st
 - **Bouncy Piston**: a piston plus a Bouncy Slime Ball. It is a vanilla piston in every way (model, push animation,
   head, power rules, 12 block limit) except that the blocks it would push are launched away as falling blocks that
   land and settle again. Built on `PistonBaseBlock`; two small mixins let the vanilla head and the vanilla push rules
-  treat it like a vanilla piston. The stone is tinted blue; the platform and the vanilla head keep the wooden texture.
+  treat it like a vanilla piston. Only the platform texture (`piston_top_bouncy.png`) is new; every other part uses the vanilla piston textures, including the vanilla head.
   Launch speeds are constants at the top of `BouncyPistonBlock`.
 
-The Bouncy Slime texture is the vanilla slime texture shifted to blue (`tools/recolor_slime.py`), and the piston
-textures were made the same way (`tools/recolor_piston.py`).
+The Bouncy Slime texture is the vanilla slime texture shifted to blue (`tools/recolor_slime.py`).
+
