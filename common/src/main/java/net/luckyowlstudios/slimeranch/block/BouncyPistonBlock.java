@@ -103,12 +103,6 @@ public class BouncyPistonBlock extends DirectionalBlock {
     }
 
     @Override
-    protected PushReaction getPistonPushReaction(BlockState state) {
-        // Like a vanilla piston, an extended one can't be pushed
-        return state.getValue(EXTENDED) ? PushReaction.BLOCK : PushReaction.NORMAL;
-    }
-
-    @Override
     protected void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
         if (!oldState.is(state.getBlock())) {
             this.scheduleUpdate(level, pos);
@@ -175,7 +169,7 @@ public class BouncyPistonBlock extends DirectionalBlock {
         }
 
         level.playSound(null, pos, SoundEvents.PISTON_EXTEND, SoundSource.BLOCKS, 0.6F, level.random.nextFloat() * 0.25F + 0.5F);
-        level.gameEvent(GameEvent.PISTON_EXTEND, pos, GameEvent.Context.of(state));
+        level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(state));
     }
 
     private void retract(ServerLevel level, BlockPos pos, BlockState state, Direction facing) {
@@ -186,7 +180,7 @@ public class BouncyPistonBlock extends DirectionalBlock {
             level.removeBlock(headPos, false);
         }
         level.playSound(null, pos, SoundEvents.PISTON_CONTRACT, SoundSource.BLOCKS, 0.6F, level.random.nextFloat() * 0.15F + 0.6F);
-        level.gameEvent(GameEvent.PISTON_CONTRACT, pos, GameEvent.Context.of(state));
+        level.gameEvent(GameEvent.BLOCK_DEACTIVATE, pos, GameEvent.Context.of(state));
     }
 
     private static void launchBlock(ServerLevel level, BlockPos pos, Direction facing) {

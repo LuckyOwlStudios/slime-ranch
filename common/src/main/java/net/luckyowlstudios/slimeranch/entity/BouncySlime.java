@@ -31,7 +31,7 @@ public class BouncySlime extends Slime {
     }
 
     @Override
-    protected void jumpFromGround() {
+    public void jumpFromGround() {
         Vec3 movement = this.getDeltaMovement();
         this.setDeltaMovement(movement.x, this.getJumpPower() * JUMP_MULTIPLIER, movement.z);
         this.hasImpulse = true;

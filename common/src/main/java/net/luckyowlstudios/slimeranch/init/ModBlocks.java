@@ -25,6 +25,8 @@ public class ModBlocks {
             () -> new BouncyPistonBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(1.5F)
+                    // Other pistons can't push it, which a vanilla piston only guarantees while extended
+                    .pushReaction(PushReaction.BLOCK)
                     .isRedstoneConductor((state, level, pos) -> false)));
 
     public static final Supplier<BouncyPistonHeadBlock> BOUNCY_PISTON_HEAD = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston_head",
