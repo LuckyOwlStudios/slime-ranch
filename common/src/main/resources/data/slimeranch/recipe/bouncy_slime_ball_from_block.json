@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "slimeranch:bouncy_slime_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "slimeranch:bouncy_slime_ball"
+  }
+}

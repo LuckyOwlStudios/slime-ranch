@@ -1,0 +1,38 @@
+package net.luckyowlstudios.slimeranch.init;
+
+import net.luckyowlstudios.slimeranch.block.BouncyPistonBlock;
+import net.luckyowlstudios.slimeranch.block.BouncyPistonHeadBlock;
+import net.luckyowlstudios.slimeranch.block.BouncySlimeBlock;
+import net.luckyowlstudios.slimeranch.platform.Services;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
+
+import java.util.function.Supplier;
+
+public class ModBlocks {
+
+    public static final Supplier<BouncySlimeBlock> BOUNCY_SLIME_BLOCK = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_slime_block",
+            () -> new BouncySlimeBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_LIGHT_BLUE)
+                    .friction(0.8F)
+                    .sound(SoundType.SLIME_BLOCK)
+                    .noOcclusion()));
+
+    public static final Supplier<BouncyPistonBlock> BOUNCY_PISTON = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston",
+            () -> new BouncyPistonBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.5F)
+                    .isRedstoneConductor((state, level, pos) -> false)));
+
+    public static final Supplier<BouncyPistonHeadBlock> BOUNCY_PISTON_HEAD = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston_head",
+            () -> new BouncyPistonHeadBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.5F)
+                    .pushReaction(PushReaction.BLOCK)));
+
+    public static void init() {
+    }
+}

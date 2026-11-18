@@ -1,7 +1,13 @@
 {
+  "block.slimeranch.bouncy_piston": "Bouncy Piston",
+  "block.slimeranch.bouncy_piston_head": "Bouncy Piston Head",
+  "block.slimeranch.bouncy_slime_block": "Bouncy Slime Block",
+  "entity.slimeranch.bouncy_slime": "Bouncy Slime",
   "entity.slimeranch.cave_slime": "Cave Slime",
   "entity.slimeranch.ice_cube": "Ice Cube",
   "entity.slimeranch.pinky": "Pinky",
+  "item.slimeranch.bouncy_slime_ball": "Bouncy Slime Ball",
+  "item.slimeranch.bouncy_slime_spawn_egg": "Bouncy Slime Spawn Egg",
   "item.slimeranch.cave_slime_spawn_egg": "Cave Slime Spawn Egg",
   "item.slimeranch.ice_cube_spawn_egg": "Ice Cube Spawn Egg",
   "item.slimeranch.mooshroom_milk": "Mooshroom Milk",

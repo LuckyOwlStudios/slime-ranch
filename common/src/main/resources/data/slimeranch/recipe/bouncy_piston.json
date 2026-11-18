@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "redstone",
+  "ingredients": [
+    {
+      "item": "slimeranch:bouncy_slime_ball"
+    },
+    {
+      "item": "minecraft:piston"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "slimeranch:bouncy_piston"
+  }
+}

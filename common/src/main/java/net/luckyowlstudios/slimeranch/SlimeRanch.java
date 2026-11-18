@@ -1,6 +1,7 @@
 package net.luckyowlstudios.slimeranch;
 
 import com.mojang.logging.LogUtils;
+import net.luckyowlstudios.slimeranch.init.ModBlocks;
 import net.luckyowlstudios.slimeranch.init.ModEntityTypes;
 import net.luckyowlstudios.slimeranch.init.ModItems;
 import net.luckyowlstudios.slimeranch.platform.Services;
@@ -17,7 +18,9 @@ public class SlimeRanch {
     public static void init() {
         LOGGER.info("Loading Slime Ranch on {}", Services.PLATFORM.getPlatformName());
         // Order matters on Fabric, where registration happens immediately: entity types before the
-        // spawn eggs that reference them.
+        // spawn eggs that reference them,
+        // and blocks before the block items that reference them.
+        ModBlocks.init();
         ModEntityTypes.init();
         ModItems.init();
     }
