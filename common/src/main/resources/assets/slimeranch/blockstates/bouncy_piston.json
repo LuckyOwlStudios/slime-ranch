@@ -2,54 +2,48 @@
   "variants": {
     "extended=false,facing=down": {
       "model": "slimeranch:block/bouncy_piston",
-      "x": 180
-    },
-    "extended=false,facing=up": {
-      "model": "slimeranch:block/bouncy_piston"
-    },
-    "extended=false,facing=north": {
-      "model": "slimeranch:block/bouncy_piston",
       "x": 90
-    },
-    "extended=false,facing=south": {
-      "model": "slimeranch:block/bouncy_piston",
-      "x": 90,
-      "y": 180
     },
     "extended=false,facing=east": {
       "model": "slimeranch:block/bouncy_piston",
-      "x": 90,
       "y": 90
+    },
+    "extended=false,facing=north": {
+      "model": "slimeranch:block/bouncy_piston"
+    },
+    "extended=false,facing=south": {
+      "model": "slimeranch:block/bouncy_piston",
+      "y": 180
+    },
+    "extended=false,facing=up": {
+      "model": "slimeranch:block/bouncy_piston",
+      "x": 270
     },
     "extended=false,facing=west": {
       "model": "slimeranch:block/bouncy_piston",
-      "x": 90,
       "y": 270
     },
     "extended=true,facing=down": {
-      "model": "slimeranch:block/bouncy_piston_extended",
-      "x": 180
-    },
-    "extended=true,facing=up": {
-      "model": "slimeranch:block/bouncy_piston_extended"
-    },
-    "extended=true,facing=north": {
-      "model": "slimeranch:block/bouncy_piston_extended",
+      "model": "slimeranch:block/bouncy_piston_base",
       "x": 90
     },
-    "extended=true,facing=south": {
-      "model": "slimeranch:block/bouncy_piston_extended",
-      "x": 90,
-      "y": 180
-    },
     "extended=true,facing=east": {
-      "model": "slimeranch:block/bouncy_piston_extended",
-      "x": 90,
+      "model": "slimeranch:block/bouncy_piston_base",
       "y": 90
     },
+    "extended=true,facing=north": {
+      "model": "slimeranch:block/bouncy_piston_base"
+    },
+    "extended=true,facing=south": {
+      "model": "slimeranch:block/bouncy_piston_base",
+      "y": 180
+    },
+    "extended=true,facing=up": {
+      "model": "slimeranch:block/bouncy_piston_base",
+      "x": 270
+    },
     "extended=true,facing=west": {
-      "model": "slimeranch:block/bouncy_piston_extended",
-      "x": 90,
+      "model": "slimeranch:block/bouncy_piston_base",
       "y": 270
     }
   }

@@ -1,14 +1,13 @@
 package net.luckyowlstudios.slimeranch.init;
 
 import net.luckyowlstudios.slimeranch.block.BouncyPistonBlock;
-import net.luckyowlstudios.slimeranch.block.BouncyPistonHeadBlock;
 import net.luckyowlstudios.slimeranch.block.BouncySlimeBlock;
 import net.luckyowlstudios.slimeranch.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
 
@@ -21,19 +20,14 @@ public class ModBlocks {
                     .sound(SoundType.SLIME_BLOCK)
                     .noOcclusion()));
 
+    // The same properties as a vanilla piston
     public static final Supplier<BouncyPistonBlock> BOUNCY_PISTON = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston",
             () -> new BouncyPistonBlock(BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .strength(1.5F)
-                    // Other pistons can't push it, which a vanilla piston only guarantees while extended
-                    .pushReaction(PushReaction.BLOCK)
-                    .isRedstoneConductor((state, level, pos) -> false)));
-
-    public static final Supplier<BouncyPistonHeadBlock> BOUNCY_PISTON_HEAD = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston_head",
-            () -> new BouncyPistonHeadBlock(BlockBehaviour.Properties.of()
-                    .mapColor(MapColor.STONE)
-                    .strength(1.5F)
-                    .pushReaction(PushReaction.BLOCK)));
+                    .isRedstoneConductor((state, level, pos) -> false)
+                    .isSuffocating((state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED))
+                    .isViewBlocking((state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED))));
 
     public static void init() {
     }

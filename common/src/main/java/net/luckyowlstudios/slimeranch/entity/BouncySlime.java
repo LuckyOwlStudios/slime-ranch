@@ -1,7 +1,12 @@
 package net.luckyowlstudios.slimeranch.entity;
 
+import net.luckyowlstudios.slimeranch.init.ModItems;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ItemParticleOption;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
@@ -9,6 +14,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.Vec3;
@@ -35,6 +41,18 @@ public class BouncySlime extends Slime {
         Vec3 movement = this.getDeltaMovement();
         this.setDeltaMovement(movement.x, this.getJumpPower() * JUMP_MULTIPLIER, movement.z);
         this.hasImpulse = true;
+        // Vanilla slimes only puff when they land; this one also bursts off the ground when it jumps
+        if (this.level() instanceof ServerLevel level) {
+            int size = this.getSize();
+            level.sendParticles(this.getParticleType(), this.getX(), this.getY() + 0.1, this.getZ(),
+                    4 + size * 4, size * 0.3, 0.05, size * 0.3, 0.08);
+        }
+    }
+
+    @Override
+    protected ParticleOptions getParticleType() {
+        // Used for the landing puff too; blue bits of its own slime ball instead of green ones
+        return new ItemParticleOption(ParticleTypes.ITEM, new ItemStack(ModItems.BOUNCY_SLIME_BALL.get()));
     }
 
     @Override
