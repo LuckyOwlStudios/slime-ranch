@@ -9,7 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@EventBusSubscriber(modid = SlimeRanch.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = SlimeRanch.MOD_ID, value = Dist.CLIENT)
 public class SlimeRanchNeoForgeClient {
 
     @SubscribeEvent
