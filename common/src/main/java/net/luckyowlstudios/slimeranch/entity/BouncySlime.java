@@ -7,16 +7,15 @@ import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Slime;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -77,9 +76,14 @@ public class BouncySlime extends Slime {
         return super.getVoicePitch() * 1.1F;
     }
 
+    /**
+     * Spawns exactly where a vanilla slime does: underground in slime chunks, and on the surface in swamps
+     * on dark nights with a bright moon. Neither spawn list has a biome check for the slime chunk part, so
+     * biomes where vanilla has no monsters are left out here.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static boolean checkBouncySlimeSpawnRules(EntityType<BouncySlime> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        if (level.getDifficulty() == Difficulty.PEACEFUL) return false;
-        return Monster.isDarkEnoughToSpawn(level, pos, random)
-                && checkMobSpawnRules(type, level, spawnType, pos, random);
+        if (level.getBiome(pos).is(Biomes.MUSHROOM_FIELDS) || level.getBiome(pos).is(Biomes.DEEP_DARK)) return false;
+        return Slime.checkSlimeSpawnRules((EntityType) type, level, spawnType, pos, random);
     }
 }

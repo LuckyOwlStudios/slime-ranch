@@ -28,7 +28,8 @@ public class SlimeRanchFabric implements ModInitializer {
 
     // Keep these in sync with the NeoForge biome modifiers in data/slimeranch/neoforge/biome_modifier
     private static final int CAVE_SLIME_WEIGHT = 30, CAVE_SLIME_MIN_GROUP = 1, CAVE_SLIME_MAX_GROUP = 2;
-    private static final int BOUNCY_SLIME_WEIGHT = 25, BOUNCY_SLIME_MIN_GROUP = 1, BOUNCY_SLIME_MAX_GROUP = 2;
+    // The same spawner entries vanilla gives the slime: every overworld biome (this is what makes slime chunks
+    // work), plus an extra single one in swamps
     private static final int ICE_CUBE_WEIGHT = 40, ICE_CUBE_MIN_GROUP = 1, ICE_CUBE_MAX_GROUP = 2;
     private static final int PINKY_WEIGHT = 8, PINKY_MIN_GROUP = 2, PINKY_MAX_GROUP = 4;
 
@@ -71,8 +72,9 @@ public class SlimeRanchFabric implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.CAVE_SLIME.get(),
                 CAVE_SLIME_WEIGHT, CAVE_SLIME_MIN_GROUP, CAVE_SLIME_MAX_GROUP);
-        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.PLAINS, Biomes.SUNFLOWER_PLAINS, Biomes.MEADOW), MobCategory.MONSTER,
-                ModEntityTypes.BOUNCY_SLIME.get(), BOUNCY_SLIME_WEIGHT, BOUNCY_SLIME_MIN_GROUP, BOUNCY_SLIME_MAX_GROUP);
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.BOUNCY_SLIME.get(), 100, 4, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.MONSTER,
+                ModEntityTypes.BOUNCY_SLIME.get(), 1, 1, 1);
         BiomeModifications.addSpawn(BiomeSelectors.tag(ConventionalBiomeTags.IS_SNOWY), MobCategory.MONSTER, ModEntityTypes.ICE_CUBE.get(),
                 ICE_CUBE_WEIGHT, ICE_CUBE_MIN_GROUP, ICE_CUBE_MAX_GROUP);
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.CHERRY_GROVE), MobCategory.CREATURE, ModEntityTypes.PINKY.get(),
