@@ -26,6 +26,9 @@ public class ModItems {
     public static final Supplier<Item> BOUNCY_PISTON = Services.PLATFORM.register(BuiltInRegistries.ITEM, "bouncy_piston",
             () -> new BlockItem(ModBlocks.BOUNCY_PISTON.get(), new Item.Properties()));
 
+    public static final Supplier<Item> HUNGRY_SLIME_SPAWN_EGG = Services.PLATFORM.register(BuiltInRegistries.ITEM, "hungry_slime_spawn_egg",
+            () -> Services.PLATFORM.createSpawnEgg(ModEntityTypes.HUNGRY_SLIME, 0xD63B3B, 0x7A1414, new Item.Properties()));
+
     public static final Supplier<Item> ICE_CUBE_SPAWN_EGG = Services.PLATFORM.register(BuiltInRegistries.ITEM, "ice_cube_spawn_egg",
             () -> Services.PLATFORM.createSpawnEgg(ModEntityTypes.ICE_CUBE, 0xBEE7FA, 0x5FA8D8, new Item.Properties()));
 

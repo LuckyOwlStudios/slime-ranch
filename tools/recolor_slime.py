@@ -1,13 +1,13 @@
 """Makes the Bouncy Slime texture: the vanilla slime texture with its green hue shifted to blue.
 
-Usage: python3 recolor_slime.py <vanilla slime.png> <output png>
+Usage: python3 recolor_slime.py <vanilla slime.png> <output png> [target hue in degrees, default 215 (blue)]
 """
 import colorsys
 import sys
 
 from PIL import Image
 
-TARGET_HUE = 215 / 360  # blue; vanilla slime green is about 120 degrees
+TARGET_HUE = (float(sys.argv[3]) if len(sys.argv) > 3 else 215) / 360  # blue by default; vanilla slime green is about 120 degrees
 
 src = Image.open(sys.argv[1]).convert("RGBA")
 out = Image.new("RGBA", src.size)

@@ -4,6 +4,7 @@ import net.luckyowlstudios.slimeranch.SlimeRanch;
 import net.luckyowlstudios.slimeranch.entity.BouncySlime;
 import net.luckyowlstudios.slimeranch.entity.CaveSlime;
 import net.luckyowlstudios.slimeranch.event.MilkingEvents;
+import net.luckyowlstudios.slimeranch.entity.HungrySlime;
 import net.luckyowlstudios.slimeranch.entity.IceCube;
 import net.luckyowlstudios.slimeranch.entity.Pinky;
 import net.luckyowlstudios.slimeranch.init.ModEntityTypes;
@@ -42,6 +43,7 @@ public class SlimeRanchNeoForge {
     private static void registerAttributes(EntityAttributeCreationEvent event) {
         event.put(ModEntityTypes.CAVE_SLIME.get(), Monster.createMonsterAttributes().build());
         event.put(ModEntityTypes.BOUNCY_SLIME.get(), Monster.createMonsterAttributes().build());
+        event.put(ModEntityTypes.HUNGRY_SLIME.get(), Monster.createMonsterAttributes().build());
         event.put(ModEntityTypes.ICE_CUBE.get(), Monster.createMonsterAttributes().build());
         event.put(ModEntityTypes.PINKY.get(), Monster.createMonsterAttributes().build());
     }
@@ -52,6 +54,8 @@ public class SlimeRanchNeoForge {
                 CaveSlime::checkCaveSlimeSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntityTypes.BOUNCY_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 BouncySlime::checkBouncySlimeSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
+        event.register(ModEntityTypes.HUNGRY_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                HungrySlime::checkHungrySlimeSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntityTypes.ICE_CUBE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 IceCube::checkIceCubeSpawnRules, RegisterSpawnPlacementsEvent.Operation.REPLACE);
         event.register(ModEntityTypes.PINKY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -62,6 +66,7 @@ public class SlimeRanchNeoForge {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.CAVE_SLIME_SPAWN_EGG.get());
             event.accept(ModItems.BOUNCY_SLIME_SPAWN_EGG.get());
+            event.accept(ModItems.HUNGRY_SLIME_SPAWN_EGG.get());
             event.accept(ModItems.ICE_CUBE_SPAWN_EGG.get());
             event.accept(ModItems.PINKY_SPAWN_EGG.get());
         }

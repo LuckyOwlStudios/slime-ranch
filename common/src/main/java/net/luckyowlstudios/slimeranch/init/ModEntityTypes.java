@@ -2,6 +2,7 @@ package net.luckyowlstudios.slimeranch.init;
 
 import net.luckyowlstudios.slimeranch.entity.BouncySlime;
 import net.luckyowlstudios.slimeranch.entity.CaveSlime;
+import net.luckyowlstudios.slimeranch.entity.HungrySlime;
 import net.luckyowlstudios.slimeranch.entity.IceCube;
 import net.luckyowlstudios.slimeranch.entity.Pinky;
 import net.luckyowlstudios.slimeranch.platform.Services;
@@ -37,6 +38,14 @@ public class ModEntityTypes {
                     .spawnDimensionsScale(4.0F)
                     .clientTrackingRange(10)
                     .build("bouncy_slime"));
+
+    public static final Supplier<EntityType<HungrySlime>> HUNGRY_SLIME = Services.PLATFORM.register(BuiltInRegistries.ENTITY_TYPE, "hungry_slime",
+            () -> EntityType.Builder.of(HungrySlime::new, MobCategory.MONSTER)
+                    .sized(0.52F, 0.52F)
+                    .eyeHeight(0.325F)
+                    .spawnDimensionsScale(4.0F)
+                    .clientTrackingRange(10)
+                    .build("hungry_slime"));
 
     // Pinky is always the smallest slime size, so it never needs extra spawn space
     public static final Supplier<EntityType<Pinky>> PINKY = Services.PLATFORM.register(BuiltInRegistries.ENTITY_TYPE, "pinky",

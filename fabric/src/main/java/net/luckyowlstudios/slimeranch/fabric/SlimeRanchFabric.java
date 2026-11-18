@@ -11,6 +11,7 @@ import net.luckyowlstudios.slimeranch.SlimeRanch;
 import net.luckyowlstudios.slimeranch.entity.BouncySlime;
 import net.luckyowlstudios.slimeranch.entity.CaveSlime;
 import net.luckyowlstudios.slimeranch.event.MilkingEvents;
+import net.luckyowlstudios.slimeranch.entity.HungrySlime;
 import net.luckyowlstudios.slimeranch.entity.IceCube;
 import net.luckyowlstudios.slimeranch.entity.Pinky;
 import net.luckyowlstudios.slimeranch.init.ModEntityTypes;
@@ -28,8 +29,9 @@ public class SlimeRanchFabric implements ModInitializer {
 
     // Keep these in sync with the NeoForge biome modifiers in data/slimeranch/neoforge/biome_modifier
     private static final int CAVE_SLIME_WEIGHT = 30, CAVE_SLIME_MIN_GROUP = 1, CAVE_SLIME_MAX_GROUP = 2;
-    // The same spawner entries vanilla gives the slime: every overworld biome (this is what makes slime chunks
-    // work), plus an extra single one in swamps
+    // Vanilla gives the slime a weight of 100 (groups of 4) in every overworld biome, which is what makes slime
+    // chunks work, plus a weight of 1 in swamps. The Bouncy Slime has half the weight and the Hungry Slime
+    // an eighth (12, since weights are whole numbers). Both follow the vanilla slime spawn rules.
     private static final int ICE_CUBE_WEIGHT = 40, ICE_CUBE_MIN_GROUP = 1, ICE_CUBE_MAX_GROUP = 2;
     private static final int PINKY_WEIGHT = 8, PINKY_MIN_GROUP = 2, PINKY_MAX_GROUP = 4;
 
@@ -40,6 +42,7 @@ public class SlimeRanchFabric implements ModInitializer {
         ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.SPAWN_EGGS).register(entries -> {
             entries.accept(ModItems.CAVE_SLIME_SPAWN_EGG.get());
             entries.accept(ModItems.BOUNCY_SLIME_SPAWN_EGG.get());
+            entries.accept(ModItems.HUNGRY_SLIME_SPAWN_EGG.get());
             entries.accept(ModItems.ICE_CUBE_SPAWN_EGG.get());
             entries.accept(ModItems.PINKY_SPAWN_EGG.get());
         });
@@ -58,6 +61,7 @@ public class SlimeRanchFabric implements ModInitializer {
     private static void registerEntities() {
         FabricDefaultAttributeRegistry.register(ModEntityTypes.CAVE_SLIME.get(), Monster.createMonsterAttributes());
         FabricDefaultAttributeRegistry.register(ModEntityTypes.BOUNCY_SLIME.get(), Monster.createMonsterAttributes());
+        FabricDefaultAttributeRegistry.register(ModEntityTypes.HUNGRY_SLIME.get(), Monster.createMonsterAttributes());
         FabricDefaultAttributeRegistry.register(ModEntityTypes.ICE_CUBE.get(), Monster.createMonsterAttributes());
         FabricDefaultAttributeRegistry.register(ModEntityTypes.PINKY.get(), Monster.createMonsterAttributes());
 
@@ -65,6 +69,8 @@ public class SlimeRanchFabric implements ModInitializer {
                 CaveSlime::checkCaveSlimeSpawnRules);
         SpawnPlacements.register(ModEntityTypes.BOUNCY_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 BouncySlime::checkBouncySlimeSpawnRules);
+        SpawnPlacements.register(ModEntityTypes.HUNGRY_SLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                HungrySlime::checkHungrySlimeSpawnRules);
         SpawnPlacements.register(ModEntityTypes.ICE_CUBE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 IceCube::checkIceCubeSpawnRules);
         SpawnPlacements.register(ModEntityTypes.PINKY.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
@@ -72,7 +78,8 @@ public class SlimeRanchFabric implements ModInitializer {
 
         BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.CAVE_SLIME.get(),
                 CAVE_SLIME_WEIGHT, CAVE_SLIME_MIN_GROUP, CAVE_SLIME_MAX_GROUP);
-        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.BOUNCY_SLIME.get(), 100, 4, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.BOUNCY_SLIME.get(), 50, 4, 4);
+        BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), MobCategory.MONSTER, ModEntityTypes.HUNGRY_SLIME.get(), 12, 4, 4);
         BiomeModifications.addSpawn(BiomeSelectors.includeByKey(Biomes.SWAMP, Biomes.MANGROVE_SWAMP), MobCategory.MONSTER,
                 ModEntityTypes.BOUNCY_SLIME.get(), 1, 1, 1);
         BiomeModifications.addSpawn(BiomeSelectors.tag(ConventionalBiomeTags.IS_SNOWY), MobCategory.MONSTER, ModEntityTypes.ICE_CUBE.get(),

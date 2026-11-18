@@ -14,6 +14,7 @@ public class SlimeRanchFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BOUNCY_SLIME_BLOCK.get(), RenderType.translucent());
         EntityRendererRegistry.register(ModEntityTypes.BOUNCY_SLIME.get(), ModSlimeRenderer.provider("bouncy_slime"));
+        EntityRendererRegistry.register(ModEntityTypes.HUNGRY_SLIME.get(), ModSlimeRenderer.provider("hungry_slime"));
         EntityRendererRegistry.register(ModEntityTypes.CAVE_SLIME.get(), ModSlimeRenderer.provider("cave_slime"));
         EntityRendererRegistry.register(ModEntityTypes.ICE_CUBE.get(), ModSlimeRenderer.provider("ice_cube"));
         EntityRendererRegistry.register(ModEntityTypes.PINKY.get(), ModSlimeRenderer.provider("pinky"));

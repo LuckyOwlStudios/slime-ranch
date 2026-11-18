@@ -15,6 +15,7 @@ public class SlimeRanchNeoForgeClient {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntityTypes.BOUNCY_SLIME.get(), ModSlimeRenderer.provider("bouncy_slime"));
+        event.registerEntityRenderer(ModEntityTypes.HUNGRY_SLIME.get(), ModSlimeRenderer.provider("hungry_slime"));
         event.registerEntityRenderer(ModEntityTypes.CAVE_SLIME.get(), ModSlimeRenderer.provider("cave_slime"));
         event.registerEntityRenderer(ModEntityTypes.ICE_CUBE.get(), ModSlimeRenderer.provider("ice_cube"));
         event.registerEntityRenderer(ModEntityTypes.PINKY.get(), ModSlimeRenderer.provider("pinky"));
