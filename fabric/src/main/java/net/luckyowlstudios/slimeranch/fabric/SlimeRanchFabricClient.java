@@ -10,6 +10,7 @@ public class SlimeRanchFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         EntityRendererRegistry.register(ModEntityTypes.CAVE_SLIME.get(), ModSlimeRenderer.provider("cave_slime"));
+        EntityRendererRegistry.register(ModEntityTypes.ICE_CUBE.get(), ModSlimeRenderer.provider("ice_cube"));
         EntityRendererRegistry.register(ModEntityTypes.PINKY.get(), ModSlimeRenderer.provider("pinky"));
     }
 }
