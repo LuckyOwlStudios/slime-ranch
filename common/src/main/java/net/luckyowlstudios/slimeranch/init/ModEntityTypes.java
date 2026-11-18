@@ -1,0 +1,33 @@
+package net.luckyowlstudios.slimeranch.init;
+
+import net.luckyowlstudios.slimeranch.entity.CaveSlime;
+import net.luckyowlstudios.slimeranch.entity.Pinky;
+import net.luckyowlstudios.slimeranch.platform.Services;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+
+import java.util.function.Supplier;
+
+public class ModEntityTypes {
+
+    // Same base dimensions as a vanilla slime; the slime's size multiplier scales them
+    public static final Supplier<EntityType<CaveSlime>> CAVE_SLIME = Services.PLATFORM.register(BuiltInRegistries.ENTITY_TYPE, "cave_slime",
+            () -> EntityType.Builder.of(CaveSlime::new, MobCategory.MONSTER)
+                    .sized(0.52F, 0.52F)
+                    .eyeHeight(0.325F)
+                    .spawnDimensionsScale(4.0F)
+                    .clientTrackingRange(10)
+                    .build("cave_slime"));
+
+    // Pinky is always the smallest slime size, so it never needs extra spawn space
+    public static final Supplier<EntityType<Pinky>> PINKY = Services.PLATFORM.register(BuiltInRegistries.ENTITY_TYPE, "pinky",
+            () -> EntityType.Builder.of(Pinky::new, MobCategory.CREATURE)
+                    .sized(0.52F, 0.52F)
+                    .eyeHeight(0.325F)
+                    .clientTrackingRange(10)
+                    .build("pinky"));
+
+    public static void init() {
+    }
+}
