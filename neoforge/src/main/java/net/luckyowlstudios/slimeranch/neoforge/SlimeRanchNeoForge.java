@@ -2,6 +2,7 @@ package net.luckyowlstudios.slimeranch.neoforge;
 
 import net.luckyowlstudios.slimeranch.SlimeRanch;
 import net.luckyowlstudios.slimeranch.entity.CaveSlime;
+import net.luckyowlstudios.slimeranch.event.MilkingEvents;
 import net.luckyowlstudios.slimeranch.entity.IceCube;
 import net.luckyowlstudios.slimeranch.entity.Pinky;
 import net.luckyowlstudios.slimeranch.init.ModEntityTypes;
@@ -9,11 +10,17 @@ import net.luckyowlstudios.slimeranch.init.ModItems;
 import net.luckyowlstudios.slimeranch.neoforge.platform.NeoForgePlatformHelper;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
@@ -28,6 +35,7 @@ public class SlimeRanchNeoForge {
         modEventBus.addListener(SlimeRanchNeoForge::registerAttributes);
         modEventBus.addListener(SlimeRanchNeoForge::registerSpawnPlacements);
         modEventBus.addListener(SlimeRanchNeoForge::addCreative);
+        NeoForge.EVENT_BUS.addListener(SlimeRanchNeoForge::onEntityInteract);
     }
 
     private static void registerAttributes(EntityAttributeCreationEvent event) {
@@ -51,6 +59,18 @@ public class SlimeRanchNeoForge {
             event.accept(ModItems.CAVE_SLIME_SPAWN_EGG.get());
             event.accept(ModItems.ICE_CUBE_SPAWN_EGG.get());
             event.accept(ModItems.PINKY_SPAWN_EGG.get());
+        }
+        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
+            event.insertAfter(new ItemStack(Items.MILK_BUCKET), new ItemStack(ModItems.MOOSHROOM_MILK.get()),
+                    CreativeModeTab.TabVisibility.PARENT_AND_SEARCH_TABS);
+        }
+    }
+
+    private static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        InteractionResult result = MilkingEvents.onInteractEntity(event.getEntity(), event.getHand(), event.getTarget());
+        if (result != InteractionResult.PASS) {
+            event.setCanceled(true);
+            event.setCancellationResult(result);
         }
     }
 }

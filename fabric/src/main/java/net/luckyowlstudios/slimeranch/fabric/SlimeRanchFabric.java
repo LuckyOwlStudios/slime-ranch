@@ -3,11 +3,13 @@ package net.luckyowlstudios.slimeranch.fabric;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors;
+import net.fabricmc.fabric.api.event.player.UseEntityCallback;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBiomeTags;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.luckyowlstudios.slimeranch.SlimeRanch;
 import net.luckyowlstudios.slimeranch.entity.CaveSlime;
+import net.luckyowlstudios.slimeranch.event.MilkingEvents;
 import net.luckyowlstudios.slimeranch.entity.IceCube;
 import net.luckyowlstudios.slimeranch.entity.Pinky;
 import net.luckyowlstudios.slimeranch.init.ModEntityTypes;
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -36,6 +39,10 @@ public class SlimeRanchFabric implements ModInitializer {
             entries.accept(ModItems.ICE_CUBE_SPAWN_EGG.get());
             entries.accept(ModItems.PINKY_SPAWN_EGG.get());
         });
+        ItemGroupEvents.modifyEntriesEvent(CreativeModeTabs.TOOLS_AND_UTILITIES).register(entries ->
+                entries.addAfter(Items.MILK_BUCKET, ModItems.MOOSHROOM_MILK.get()));
+        UseEntityCallback.EVENT.register((player, level, hand, entity, hitResult) ->
+                MilkingEvents.onInteractEntity(player, hand, entity));
     }
 
     private static void registerEntities() {

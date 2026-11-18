@@ -29,3 +29,10 @@ through `platform/services/IPlatformHelper`.
 
 Jars end up in `fabric/build/libs` and `neoforge/build/libs`. Run the game with `./gradlew :fabric:runClient` or
 `./gradlew :neoforge:runClient`.
+
+## Mooshroom Milk (slime farming)
+
+Use an empty bucket on an adult mooshroom to get **Mooshroom Milk** (cows still give regular milk, and bowls still
+give stew). Use the milk on any slime, including magma cubes, Cave Slimes and Ice Cubes, to grow it to the next size
+(1 -> 2 -> 4, capped at `MooshroomMilkItem.MAX_SIZE`). The bucket is returned, and a fed slime no longer despawns.
+Bigger slimes split into more small slimes, so more slime balls. Pinky always stays small and can't be grown.

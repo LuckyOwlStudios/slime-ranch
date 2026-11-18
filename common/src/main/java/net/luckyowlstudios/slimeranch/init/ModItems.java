@@ -1,8 +1,10 @@
 package net.luckyowlstudios.slimeranch.init;
 
+import net.luckyowlstudios.slimeranch.item.MooshroomMilkItem;
 import net.luckyowlstudios.slimeranch.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 import java.util.function.Supplier;
 
@@ -16,6 +18,9 @@ public class ModItems {
 
     public static final Supplier<Item> PINKY_SPAWN_EGG = Services.PLATFORM.register(BuiltInRegistries.ITEM, "pinky_spawn_egg",
             () -> Services.PLATFORM.createSpawnEgg(ModEntityTypes.PINKY, 0xF7A8D0, 0xD9558F, new Item.Properties()));
+
+    public static final Supplier<Item> MOOSHROOM_MILK = Services.PLATFORM.register(BuiltInRegistries.ITEM, "mooshroom_milk",
+            () -> new MooshroomMilkItem(new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
 
     public static void init() {
     }
