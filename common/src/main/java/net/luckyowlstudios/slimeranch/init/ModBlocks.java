@@ -1,6 +1,7 @@
 package net.luckyowlstudios.slimeranch.init;
 
 import net.luckyowlstudios.slimeranch.block.BouncyPistonBlock;
+import net.luckyowlstudios.slimeranch.block.BouncyPistonHeadBlock;
 import net.luckyowlstudios.slimeranch.block.BouncySlimeBlock;
 import net.luckyowlstudios.slimeranch.platform.Services;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -8,6 +9,7 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
 
@@ -28,6 +30,14 @@ public class ModBlocks {
                     .isRedstoneConductor((state, level, pos) -> false)
                     .isSuffocating((state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED))
                     .isViewBlocking((state, level, pos) -> !state.getValue(PistonBaseBlock.EXTENDED))));
+
+    // The vanilla piston head properties; the base places this instead of the vanilla head
+    public static final Supplier<BouncyPistonHeadBlock> BOUNCY_PISTON_HEAD = Services.PLATFORM.register(BuiltInRegistries.BLOCK, "bouncy_piston_head",
+            () -> new BouncyPistonHeadBlock(BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .strength(1.5F)
+                    .noLootTable()
+                    .pushReaction(PushReaction.BLOCK)));
 
     public static void init() {
     }
