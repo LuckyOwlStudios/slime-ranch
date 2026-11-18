@@ -5,6 +5,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.piston.PistonBaseBlock;
 import net.minecraft.world.level.block.piston.PistonStructureResolver;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,14 +32,29 @@ public class BouncyPistonBlock extends PistonBaseBlock {
     @Override
     public boolean triggerEvent(BlockState state, Level level, BlockPos pos, int id, int param) {
         // Event 0 is the head extending
-        if (id == 0 && level instanceof ServerLevel serverLevel) {
+        if (id == 0) {
             Direction facing = state.getValue(FACING);
-            // Vanilla ignores the event when power was lost in the meantime, so do the same
-            if (hasNeighborSignal(level, pos, facing)) {
-                launchBlocks(serverLevel, pos, facing);
+            if (level instanceof ServerLevel serverLevel) {
+                // Vanilla ignores the event when power was lost in the meantime, so do the same
+                if (hasNeighborSignal(level, pos, facing)) {
+                    launchBlocks(serverLevel, pos, facing);
+                }
+            } else {
+                // The event reaches the client before the server's block changes do, so the client still
+                // sees the blocks and would run its own push animation on them. That leaves a block that
+                // only exists on the client one space further on. Clear them here, like the server did.
+                clearBlocksOnClient(level, pos, facing);
             }
         }
         return super.triggerEvent(state, level, pos, id, param);
+    }
+
+    private static void clearBlocksOnClient(Level level, BlockPos pos, Direction facing) {
+        PistonStructureResolver resolver = new PistonStructureResolver(level, pos, facing, true);
+        if (!resolver.resolve()) return;
+        for (BlockPos blockPos : resolver.getToPush()) {
+            level.setBlock(blockPos, Blocks.AIR.defaultBlockState(), Block.UPDATE_CLIENTS | Block.UPDATE_KNOWN_SHAPE);
+        }
     }
 
     /** The same power check a vanilla piston uses, including quasi-connectivity. */
